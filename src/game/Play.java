@@ -11,7 +11,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
-public class Play extends BasicGameState implements MusicListener {
+public class Play extends BasicGameState {
 	
 	//sprite sheets
 	private SpriteSheet playerUp, playerDown, playerLeft, playerRight;
@@ -255,18 +255,6 @@ public class Play extends BasicGameState implements MusicListener {
 	public int getID(){
 		
 		return 1;
-	}
-
-	@Override
-	public void musicEnded(Music arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void musicSwapped(Music arg0, Music arg1) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

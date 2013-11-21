@@ -10,7 +10,7 @@ import org.newdawn.slick.state.transition.HorizontalSplitTransition;
 import org.newdawn.slick.state.transition.SelectTransition;
 import org.lwjgl.input.*;
 
-public class Menu extends BasicGameState implements MusicListener {
+public class Menu extends BasicGameState {
 	
 	Image logo;
 	Image background;
@@ -108,19 +108,6 @@ public class Menu extends BasicGameState implements MusicListener {
 		
 		return 0;
 	}
-	
-	
 
-	@Override
-	public void musicEnded(Music m) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void musicSwapped(Music m, Music m2) {
-		
-		
-	}
 
 }
