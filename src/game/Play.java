@@ -3,6 +3,7 @@ package game;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.*;
@@ -15,17 +16,26 @@ public class Play extends BasicGameState implements MusicListener {
 	//sprite sheets
 	private SpriteSheet playerUp, playerDown, playerLeft, playerRight;
 	
+	//player position
 	private double playerPosX, playerPosY;
+	
+	//mouse position
+	int mousePosX, mousePosY;
 	
 	//keeps track of where we are on the map (for scrolling)
 	private int mapX, mapY;
 	
+	String mousepos = "no input detected!";
+	
 	//anims
 	Animation player, movingUp, movingDown, movingLeft, movingRight;
-	//world
+	
+	//world and menu stuff
 	private TiledMap world1;
-	//Image worldMap;
 	boolean quitGame = false;
+	private Image resume;
+	private Image menu;
+	private Image quit;
 	FadeOutTransition fo;
 	Music overworld;
 	
@@ -66,6 +76,11 @@ public class Play extends BasicGameState implements MusicListener {
 		player = movingDown;
 		player.stop();
 		
+		//menu stuff
+		resume = new Image("res/sprites/resume.png");
+		menu = new Image("res/sprites/menu.png");
+		quit = new Image("res/sprites/exitGame.png");
+		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
@@ -81,8 +96,7 @@ public class Play extends BasicGameState implements MusicListener {
 		
 		g.setColor(Color.white);
 		g.drawString("Player position x: "+ playerPosX+ "\nPlayer position y: " + playerPosY, 400,20);
-		
-		
+		g.drawString(mousepos, 200, 400);		
 		//menu code
 		if (quitGame == true){
 			
@@ -90,10 +104,10 @@ public class Play extends BasicGameState implements MusicListener {
 			Color c = new Color(0, 0, 0, 85);
 			g.setColor(c);
 			g.fillRect(0,0,640,480);
-			g.setColor(Color.white);
-			g.drawString("Resume Game (R)", 250, 100);
-			g.drawString("Back to Main Menu (M)",250, 150);
-			g.drawString("Quit Game (Q)", 250, 200);
+			resume.draw(200, 125);
+			menu.draw(200, 200);
+			quit.draw(200 , 275);
+			
 			
 			if (quitGame == false){
 				g.clear();
@@ -104,8 +118,14 @@ public class Play extends BasicGameState implements MusicListener {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+		
 		//every input is stored here
 		Input input = gc.getInput();
+		
+		mousePosX = Mouse.getX();
+		mousePosY = Mouse.getY();
+		
+		mousepos = "Position x: " + mousePosX + " y: " + mousePosY;
 		
 		//update world
 		int objectlayer = world1.getLayerIndex("Objects");
@@ -182,6 +202,35 @@ public class Play extends BasicGameState implements MusicListener {
 		}
 		//when menu is up
 		if (quitGame == true){
+			
+			//resume button
+			if ((mousePosX > 204 && mousePosX < 404) && (mousePosY > 308 && mousePosY < 350)){
+				
+				if (Mouse.isButtonDown(0)){
+					quitGame = false;
+					
+				}
+				
+			}
+			//menu button
+			if ((mousePosX > 204 && mousePosX < 404) && (mousePosY > 237 && mousePosY < 275)){
+				
+				if (Mouse.isButtonDown(0)){
+					quitGame = false;
+					sbg.enterState(0, new FadeOutTransition(Color.black, 2000), new FadeInTransition(Color.black, 2000));
+				}
+				
+			}
+			
+			//quit button
+			if ((mousePosX > 204 && mousePosX < 404) && (mousePosY > 160 && mousePosY < 201)){
+				
+				if (Mouse.isButtonDown(0)){
+					System.exit(0);
+				}
+				
+			}
+			
 
 			if (input.isKeyDown(Input.KEY_R)){
 				quitGame = false;
