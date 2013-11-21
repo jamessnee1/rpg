@@ -96,6 +96,7 @@ public class Play extends BasicGameState {
 		
 		g.setColor(Color.white);
 		g.drawString("Player position x: "+ playerPosX+ "\nPlayer position y: " + playerPosY, 400,20);
+		g.drawString("Map position x:" + mapX + "\nMap position y: "+ mapY, 400, 60);
 		g.drawString(mousepos, 200, 400);		
 		//menu code
 		if (quitGame == true){
@@ -141,7 +142,6 @@ public class Play extends BasicGameState {
 			
 		}
 
-		
 		if (input.isKeyDown(input.KEY_DOWN) && quitGame != true){
 
 			player = movingDown;
@@ -185,6 +185,8 @@ public class Play extends BasicGameState {
 			mapY--;
 			playerPosY = 0;
 		}
+		
+
 		
 		//detects if player is not moving, stop the anim and display frame 0
 		if (!input.isKeyDown(input.KEY_UP) && !input.isKeyDown(input.KEY_DOWN) && !input.isKeyDown(input.KEY_LEFT) &&
