@@ -129,7 +129,7 @@ public class Play extends BasicGameState {
 		
 		//update world
 		int objectlayer = world1.getLayerIndex("Objects");
-		int tileID = world1.getTileId(0, 0, objectlayer);
+		//int tileID = world1.getTileId(0, 0, objectlayer);
 		
 		//player movement
 		if (input.isKeyDown(input.KEY_UP) && quitGame != true){
