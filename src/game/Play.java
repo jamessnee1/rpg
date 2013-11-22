@@ -25,6 +25,9 @@ public class Play extends BasicGameState {
 	//keeps track of where we are on the map (for scrolling)
 	private int mapX, mapY;
 	
+	//collision layer
+	
+	
 	String mousepos = "no input detected!";
 	
 	//anims
@@ -88,7 +91,7 @@ public class Play extends BasicGameState {
 		
 		//draw world, will only render whats on screen
 		//player position, map position, map position + tile
-		world1.render((int)playerPosX-32, (int)playerPosY-32, mapX, mapY, mapX+26, mapY+26);
+		world1.render((int)playerPosX-32, (int)playerPosY-32, mapX, mapY, mapX+40, mapY+40);
 		
 		//draw player
 		player.draw(320,240);
@@ -128,9 +131,9 @@ public class Play extends BasicGameState {
 		
 		mousepos = "Position x: " + mousePosX + " y: " + mousePosY;
 		
-		//update world
-		int objectlayer = world1.getLayerIndex("Objects");
-		//int tileID = world1.getTileId(0, 0, objectlayer);
+		//Collision detection
+		float oldX = (float)playerPosX, oldY = (float)playerPosY;
+		
 		
 		//player movement
 		if (input.isKeyDown(input.KEY_UP) && quitGame != true){
@@ -170,18 +173,26 @@ public class Play extends BasicGameState {
 		
 		//map updating
 		if (playerPosX < 0){
+			
+			//go left
+			//top left
+			//middle left
+			//bottom left
 			mapX++;
 			playerPosX = 32;
 		}
 		if (playerPosX > 32){
+			//go right
 			mapX--;
 			playerPosX = 0;
 		}
 		if (playerPosY < 0){
+			//go up
 			mapY++;
 			playerPosY = 32;
 		}
 		if (playerPosY > 32){
+			//go down
 			mapY--;
 			playerPosY = 0;
 		}

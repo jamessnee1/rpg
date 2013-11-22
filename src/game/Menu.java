@@ -14,6 +14,7 @@ public class Menu extends BasicGameState {
 	
 	Image logo;
 	Image background;
+	Image copyright;
 	float logopos = 600;
 	Image playnow;
 	Image exitgame;
@@ -30,16 +31,18 @@ public class Menu extends BasicGameState {
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
+		
+		//initialise graphics
 		logo = new Image("res/sprites//8bit.png");
 		background = new Image("res/sprites/background.png");
-
-		
-		
+		copyright = new Image("res/sprites/copyright.png");
 		fo = new FadeOutTransition(Color.black, 2000);
 		fi = new FadeInTransition(Color.black, 2000);
 		white = new FadeInTransition(Color.white, 1000);
+		//initialise buttons
 		playnow = new Image("res/sprites/playNow.png");
 		exitgame = new Image("res/sprites/exitGame.png");
+		//initialise music
 		intro = new Music("res/sound/music/intro.wav");
 		overworld = new Music("res/sound/music/overworld.ogg");
 		intro.play();
@@ -49,17 +52,24 @@ public class Menu extends BasicGameState {
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 
+		//render background
 		Color bluesky = new Color(1,95,165);
 		g.setColor(bluesky);
 		g.fillRect(0, 0, 640, 480);
 		
+		//draw clouds
 		background.draw(0,0);
 		
+		//draw copyright box
+		copyright.draw(135, 370);
+		
+		//draw logo and buttons
 		g.setColor(Color.white);
 		logo.draw(logopos, 20);
 		g.drawString(mousepos, 200, 400);
 		playnow.draw(200, 125);
 		exitgame.draw(200, 200);
+		
 		
 	}
 	
