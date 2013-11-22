@@ -41,9 +41,6 @@ public class Play extends BasicGameState {
 	private Image quit;
 	FadeOutTransition fo;
 	Music overworld;
-	
-	//anim duration
-	int[] duration = {200, 200};
 
 	public Play(int state){
 		
@@ -131,10 +128,7 @@ public class Play extends BasicGameState {
 		
 		mousepos = "Position x: " + mousePosX + " y: " + mousePosY;
 		
-		//Collision detection
-		float oldX = (float)playerPosX, oldY = (float)playerPosY;
-		
-		
+
 		//player movement
 		if (input.isKeyDown(input.KEY_UP) && quitGame != true){
 			

@@ -66,7 +66,7 @@ public class Menu extends BasicGameState {
 		//draw logo and buttons
 		g.setColor(Color.white);
 		logo.draw(logopos, 20);
-		g.drawString(mousepos, 200, 400);
+		g.drawString(mousepos, 200, 300);
 		playnow.draw(200, 125);
 		exitgame.draw(200, 200);
 		
