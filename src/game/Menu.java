@@ -14,11 +14,11 @@ public class Menu extends BasicGameState {
 	
 	Image logo;
 	Image background;
-	Image copyright;
 	float logopos = 600;
 	Image playnow;
 	Image exitgame;
 	String mousepos = "No input detected!";
+	String copyright = "Copyright \u00a9 2013 JSS Studios. Uses the Slick2D and LWJGL libraries.";
 	FadeOutTransition fo;
 	FadeInTransition fi, white;
 	Music intro;
@@ -33,9 +33,9 @@ public class Menu extends BasicGameState {
 		
 		
 		//initialise graphics
-		logo = new Image("res/sprites//8bit.png");
+		logo = new Image("res/sprites/8bit.png");
 		background = new Image("res/sprites/background.png");
-		copyright = new Image("res/sprites/copyright.png");
+		//copyright = new Image("res/sprites/copyright.png");
 		fo = new FadeOutTransition(Color.black, 2000);
 		fi = new FadeInTransition(Color.black, 2000);
 		white = new FadeInTransition(Color.white, 1000);
@@ -60,13 +60,13 @@ public class Menu extends BasicGameState {
 		//draw clouds
 		background.draw(0,0);
 		
-		//draw copyright box
-		copyright.draw(135, 370);
-		
 		//draw logo and buttons
 		g.setColor(Color.white);
 		logo.draw(logopos, 20);
 		g.drawString(mousepos, 200, 300);
+		//draw copyright text
+		g.setColor(Color.black);
+		g.drawString(copyright, 10, 450);
 		playnow.draw(200, 125);
 		exitgame.draw(200, 200);
 		
