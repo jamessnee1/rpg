@@ -25,6 +25,7 @@ public class Play extends BasicGameState {
 	
 	private PauseMenu pause;
 	
+	
 	//collision layer
 
 	String mousepos = "no input detected!";
@@ -39,13 +40,15 @@ public class Play extends BasicGameState {
 		
 	}
 	
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
 		System.out.println("In init play state");
 		
 		player1 = new Player(gc, sbg);
 		
 		pause = new PauseMenu();
+		
+		
 		
 		
 		//load tmx for first level
@@ -55,7 +58,7 @@ public class Play extends BasicGameState {
 		
 	}
 	
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 
 		//every input is stored here
 		Input input = gc.getInput();
@@ -66,7 +69,8 @@ public class Play extends BasicGameState {
 		
 		//draw player
 		player1.render(gc, sbg, g);
-		
+
+
 		if (PauseMenu.isQuitGame()){
 			pause.render(gc, sbg, g);
 		}
@@ -77,7 +81,7 @@ public class Play extends BasicGameState {
 
 	}
 	
-	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		
 		//every input is stored here
 		Input input = gc.getInput();
@@ -89,6 +93,7 @@ public class Play extends BasicGameState {
 		
 		player1.update(gc, sbg, delta);
 		pause.update(gc, sbg, delta);
+
 		
 		//map updating
 		if (player1.getPlayerPosX() < 0){
