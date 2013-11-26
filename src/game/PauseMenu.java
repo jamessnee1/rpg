@@ -14,28 +14,32 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class PauseMenu {
 	
 	private static boolean quitGame = false;
-	private Image resume;
-	private Image menu;
-	private Image quit;
+
+	
+	
 	//mouse position
 	private int mousePosX, mousePosY;
 	
-	public PauseMenu(GameContainer gc, StateBasedGame sbg) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		
-		//menu stuff
-		resume = new Image("res/sprites/resume.png");
-		menu = new Image("res/sprites/menu.png");
-		quit = new Image("res/sprites/exitGame.png");
-		
+				
 		
 	}
 	
+	public PauseMenu()  {
+
+	}
+	
+	
+	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 
-		System.out.println("In Pausemenu render method. QuitGame is: " + quitGame);
 		Color c = new Color(0, 0, 0, 85);
 		g.setColor(c);
 		g.fillRect(0,0,640,480);
+		Image resume = new Image("res/sprites/resume.png");
+		Image menu = new Image("res/sprites/menu.png");
+		Image quit = new Image("res/sprites/exitGame.png");
 		resume.draw(200, 125);
 		menu.draw(200, 200);
 		quit.draw(200 , 275);

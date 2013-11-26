@@ -1,5 +1,10 @@
 package game;
 
+import java.sql.SQLException;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -67,13 +72,30 @@ public class Game extends StateBasedGame {
 			
 		}catch(SlickException e){
 			
-			e.printStackTrace();
+			//e.printStackTrace();
+			Game.processException(e);
 			
 		}
 		
 
 		
 	}
+	
+	//this method puts SlickExceptions into a readable form for printing
+	public static void processException(SlickException e){
+			
+		//Set a string with all errors in it for JDialog
+		String error = new String("Error: " +e.getMessage());
+			
+			JOptionPane errorPane = new JOptionPane(error, JOptionPane.ERROR_MESSAGE);
+			   JDialog errorDialog = errorPane.createDialog("Error");
+			   errorDialog.setAlwaysOnTop(true);
+			   errorDialog.setVisible(true);
+			   
+			System.err.println("Error message: " + e.getMessage());
+			
+			
+		}
 
 	public static int getMenu() {
 		return menu;

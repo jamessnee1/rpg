@@ -29,7 +29,7 @@ public class Menu extends BasicGameState {
 		
 	}
 	
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
 		
 		//initialise graphics

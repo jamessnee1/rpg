@@ -25,6 +25,7 @@ public class Intro extends BasicGameState {
 		title2 = "Presents...";
 		fader = 0;
 		waitTime = 1000;
+		System.out.println("In init menu state");
 		
 
 	}
