@@ -13,7 +13,7 @@ import org.newdawn.slick.state.*;
  * 		Uses Slick2D and LWJGL Libraries
  * 	Todo: 
  * 
- * Putting everything into separate classes
+ * 
  * 		  Collision Detection
  * 		  Messaging System
  * 		  Inventory System						

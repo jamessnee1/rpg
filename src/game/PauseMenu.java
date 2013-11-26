@@ -20,17 +20,6 @@ public class PauseMenu {
 	//mouse position
 	private int mousePosX, mousePosY;
 	
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
-		
-				
-		
-	}
-	
-	public PauseMenu()  {
-
-	}
-	
-	
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 
@@ -53,9 +42,7 @@ public class PauseMenu {
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
-		
-		System.out.println("Pausemenu update method");
-		System.out.println("The value of quitGame is:"+ quitGame);
+
 		Input input = gc.getInput();
 		mousePosX = Mouse.getX();
 		mousePosY = Mouse.getY();
