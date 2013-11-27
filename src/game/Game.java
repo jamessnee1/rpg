@@ -67,6 +67,10 @@ public class Game extends StateBasedGame {
 			appgc = new AppGameContainer(new Game(gamename));
 			//width, height, fullscreen
 			appgc.setDisplayMode(640, 480, false);
+			//set vsync to monitor
+			appgc.setVSync(true);
+			//turn on and off FPS
+			appgc.setShowFPS(false);
 			appgc.start();
 			
 			

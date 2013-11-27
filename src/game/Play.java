@@ -104,6 +104,7 @@ public class Play extends BasicGameState {
 		
 		player1.update(gc, sbg, delta);
 		pause.update(gc, sbg, delta);
+		health.update(gc, sbg, delta);
 
 		
 		//map updating

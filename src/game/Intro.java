@@ -16,8 +16,7 @@ public class Intro extends BasicGameState {
 	private Image intro2;
 	boolean fade;
 	boolean fade2 = false;
-	private int timer;
-	private int waitTime = 2000;
+	
 	
 	
 	public Intro(int State){
