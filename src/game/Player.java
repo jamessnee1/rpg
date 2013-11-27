@@ -9,10 +9,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+
 public class Player {
 	
 	//player health
-	private int health;
+	private static float health;
 	//player graphics
 	private SpriteSheet playerUp, playerDown, playerLeft, playerRight;
 	//player co-ordinates
@@ -23,21 +26,25 @@ public class Player {
 	private int mapX;
 	private int mapY;
 	
+	private String blockedKey = "blocked";
+	private TiledMapTileLayer collision;
+	
+	
 	
 	public Player(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
 		//change this when health bar is done
-		this.health = 100;
-
+		this.health = 0;
 		
+
 		mapX = Play.getMapX();
 		mapY = Play.getMapY();
 		
 		//initialise anims
-		playerUp = new SpriteSheet("res/sprites/playerup.png", 32, 32);
+		playerUp = new SpriteSheet("res/sprites/playerup4frames.png", 32, 32);
 		playerDown = new SpriteSheet("res/sprites/playerdown4frames.png", 32, 32);
-		playerLeft = new SpriteSheet("res/sprites/playerleft.png", 32, 32);
-		playerRight = new SpriteSheet("res/sprites/playerright.png", 32, 32);
+		playerLeft = new SpriteSheet("res/sprites/playerleft4frames.png", 32, 32);
+		playerRight = new SpriteSheet("res/sprites/playerright4frames.png", 32, 32);
 		
 		//assigning the animations (spritesheet, duration)
 		movingUp = new Animation(playerUp, 200);
@@ -59,10 +66,14 @@ public class Player {
 		g.drawString("Player position x: "+ playerPosX+ "\nPlayer position y: " + playerPosY, 400,20);
 	}
 	
-	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
+	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		
 		//every input is stored here
 		Input input = gc.getInput();
+		
+		//get old x and y for collision detection
+		double oldX = playerPosX, oldY = playerPosY;
+		boolean collisionX = false, collisionY = false;
 		
 		//player movement
 		if (input.isKeyDown(input.KEY_UP) && PauseMenu.isQuitGame() != true){
@@ -109,16 +120,20 @@ public class Player {
 					
 		}
 
-		
 	}
+	
+	//private boolean isCellBlocked(double x, double y){
+		//Cell cell = collision.getCell((int) (x / collision.getTileWidth()), (int) (y / collision.getTileHeight()));
+		//return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
+	//}
 	
 	
 	//getters and setters
-	public int getHealth() {
+	public static float getHealth() {
 		return health;
 	}
 
-	public void setHealth(int health) {
+	public void setHealth(float health) {
 		this.health = health;
 	}
 

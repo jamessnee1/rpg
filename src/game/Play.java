@@ -11,10 +11,12 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
 public class Play extends BasicGameState {
 	
 	//create a new player
-	private Player player1;
+	private static Player player1;
 	
 	//create background
 	private Image background;
@@ -29,12 +31,7 @@ public class Play extends BasicGameState {
 	private static int mapX;
 	private static int mapY;
 	
-	private int tileLocation;
-	
 	private PauseMenu pause;
-	
-	
-	//collision layer
 
 	String mousepos = "no input detected!";
 
@@ -59,6 +56,10 @@ public class Play extends BasicGameState {
 		health = new HealthBar(gc, sbg);
 		
 		pause = new PauseMenu();
+		
+		//set map to 0
+		mapX = 0;
+		mapY = 0;
 		
 		
 		
@@ -181,6 +182,18 @@ public class Play extends BasicGameState {
 
 	public static int getMapY() {
 		return mapY;
+	}
+
+	public static void setMapX(int mapX) {
+		Play.mapX = mapX;
+	}
+
+	public static void setMapY(int mapY) {
+		Play.mapY = mapY;
+	}
+
+	public static Player getPlayer1() {
+		return player1;
 	}
 
 	

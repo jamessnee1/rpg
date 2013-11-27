@@ -12,8 +12,7 @@ public class HealthBar extends Image {
 	
 	private float minHealth = 0;
 	private float maxHealth = 100;
-	private float currentHealth = 100;
-	private float healthAnim = 0;
+	private float currentHealth = Play.getPlayer1().getHealth();
 	private boolean initHealth = false;
 	private Rectangle bar;
 	private long time = 0;
@@ -33,24 +32,17 @@ public class HealthBar extends Image {
 		g.fill(bar);
 		g.draw(bar);
 		g.setColor(Color.green);
-		g.fillRect(50, 30, healthAnim, 10);
+		g.fillRect(50, 30, currentHealth, 10);
 		
 		
 		
 	}
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		
-		//initial health startup animation
-		if (initHealth == false){
-			while (healthAnim < 100){
-				//100 pixels over 1 second
-				healthAnim += 200 * delta / 1000f;
-				
-			}
-				
-		initHealth = true;
-
-		}
+		//renders properly but keeps going past 100
+		//for (float i = 0; i < .1f; i++){
+		//	currentHealth++;
+		//}
 		
 		
 	}
