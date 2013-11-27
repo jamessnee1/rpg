@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/jars/slick.jar"/>
 	<classpathentry kind="lib" path="lib/jars/jorbis-0.0.17-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 6 (MacOS X Default)"/>
+	<classpathentry exported="true" kind="lib" path="lib/jars/gdx.jar" sourcepath="lib/jars/gdx-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

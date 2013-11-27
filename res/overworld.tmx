@@ -64,6 +64,9 @@
   </data>
  </layer>
  <layer name="Collision" width="50" height="50">
+  <properties>
+   <property name="blocked" value=""/>
+  </properties>
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAA+2YQQ6DMAwE6VN4DOUd7d9Lv9Ec4BKBEq+ddCN2JF+Qomhi4xjmxzTNCkXDGI1ajyU9ezaIdd/rDZ7dse5u+WCn5PEKdkLrpwRLPj5pzy3Fd9/ben4sHl7k0YdSvz/6NrtHLfLoR97Lzp6ze9T2X3aPWiI8Wt3RFqwe0XPvCp5BXm+qKy7kwYU84r+xPCgfGFezkhflg4tRPfKZ7p8ekfMl4oHs33omHrWucuTBBZsHek96PVrdz1bY8oEijzKlud4z9+dre+XD8p8F+Ydyl7ry9qNe/YwtH+g7w+aBIg8urjwUiqj4AXyQz5wQJwAA
   </data>

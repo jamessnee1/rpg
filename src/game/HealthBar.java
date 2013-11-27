@@ -44,7 +44,7 @@ public class HealthBar extends Image {
 		if (initHealth == false){
 			while (healthAnim < 100){
 				//100 pixels over 1 second
-				healthAnim += 100 * delta / 1000f;
+				healthAnim += 200 * delta / 1000f;
 				
 			}
 				

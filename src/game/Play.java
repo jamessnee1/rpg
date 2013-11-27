@@ -16,6 +16,9 @@ public class Play extends BasicGameState {
 	//create a new player
 	private Player player1;
 	
+	//create background
+	private Image background;
+	
 	//health bar
 	private HealthBar health;
 
@@ -25,6 +28,8 @@ public class Play extends BasicGameState {
 	//keeps track of where we are on the map (for scrolling)
 	private static int mapX;
 	private static int mapY;
+	
+	private int tileLocation;
 	
 	private PauseMenu pause;
 	
@@ -47,6 +52,8 @@ public class Play extends BasicGameState {
 		
 		System.out.println("In init play state");
 		
+		background = new Image("res/sprites/background.png");
+		
 		player1 = new Player(gc, sbg);
 		
 		health = new HealthBar(gc, sbg);
@@ -67,6 +74,14 @@ public class Play extends BasicGameState {
 
 		//every input is stored here
 		Input input = gc.getInput();
+		
+		//set sky to blue
+		Color bluesky = new Color(1,95,165);
+		g.setColor(bluesky);
+		g.fillRect(0, 0, 640, 480);
+		
+		//draw background
+		background.draw(0,0);
 		
 		//draw world, will only render whats on screen
 		//player position, map position, map position + tile
@@ -96,6 +111,14 @@ public class Play extends BasicGameState {
 		
 		//every input is stored here
 		Input input = gc.getInput();
+		
+		//get layers of tilemap
+		int collisionLayer = world1.getLayerIndex("Collision");
+		
+		int blocked = world1.getTileId(0,0, collisionLayer);
+		//create a new bound rectangle
+		Rectangle checkCollision = getBounds();
+		
 
 		mousePosX = Mouse.getX();
 		mousePosY = Mouse.getY();
@@ -109,12 +132,16 @@ public class Play extends BasicGameState {
 		
 		//map updating
 		if (player1.getPlayerPosX() < 0){
-			//go left
+			//go right
+			//collision detection
+			if (mapX+1 == blocked){
+				System.out.println("Blocked Tile");
+			}
 			mapX++;
 			player1.setPlayerPosX(32);
 		}
 		if (player1.getPlayerPosX() > 32){
-			//go right
+			//go left
 			mapX--;
 			player1.setPlayerPosX(0);
 		}
@@ -135,6 +162,12 @@ public class Play extends BasicGameState {
 					
 		}
 
+	}
+	
+	//this method creates a new rectangle at the map position
+	public Rectangle getBounds(){
+		
+		return new Rectangle(mapX, mapY, 32, 32);
 	}
 	
 	public int getID(){

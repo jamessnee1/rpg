@@ -14,6 +14,7 @@ public class Menu extends BasicGameState {
 	
 	Image logo;
 	Image background;
+	Image heroBack;
 	float logopos = 600;
 	Image playnow;
 	Image exitgame;
@@ -35,7 +36,7 @@ public class Menu extends BasicGameState {
 		//initialise graphics
 		logo = new Image("res/sprites/8bit.png");
 		background = new Image("res/sprites/background.png");
-		//copyright = new Image("res/sprites/copyright.png");
+		heroBack = new Image("res/sprites/menuHero.png");
 		fo = new FadeOutTransition(Color.black, 2000);
 		fi = new FadeInTransition(Color.black, 2000);
 		white = new FadeInTransition(Color.white, 1000);
@@ -60,6 +61,8 @@ public class Menu extends BasicGameState {
 		//draw clouds
 		background.draw(0,0);
 		
+		heroBack.draw(-300, 50);
+		
 		//draw logo and buttons
 		g.setColor(Color.white);
 		logo.draw(logopos, 20);
@@ -75,7 +78,8 @@ public class Menu extends BasicGameState {
 	
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
-		
+		//set mouse cursor
+		gc.setMouseCursor("res/sprites/cursor.png", 0 , 0);
 		 
 		
 		int xpos = Mouse.getX();
