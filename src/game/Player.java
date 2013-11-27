@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Player {
 	
@@ -26,8 +27,11 @@ public class Player {
 	private int mapX;
 	private int mapY;
 	
+	//player collision box
+	private Rectangle collisionBox;
+	
 	private String blockedKey = "blocked";
-	private TiledMapTileLayer collision;
+	
 	
 	
 	
@@ -35,6 +39,8 @@ public class Player {
 		
 		//change this when health bar is done
 		this.health = 0;
+		
+		this.collisionBox = collisionBox;
 		
 
 		mapX = Play.getMapX();
@@ -61,6 +67,7 @@ public class Player {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		//draw player
 		this.player.draw(320,240);
+		
 		
 		g.setColor(Color.white);
 		g.drawString("Player position x: "+ playerPosX+ "\nPlayer position y: " + playerPosY, 400,20);
@@ -119,6 +126,7 @@ public class Player {
 			player.setCurrentFrame(0);
 					
 		}
+		
 
 	}
 	
@@ -171,6 +179,10 @@ public class Player {
 
 	public Animation getMovingRight() {
 		return movingRight;
+	}
+
+	public Rectangle getCollisionBox() {
+		return collisionBox;
 	}
 	
 	

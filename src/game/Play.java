@@ -39,6 +39,7 @@ public class Play extends BasicGameState {
 	private TiledMap world1;
 	FadeOutTransition fo;
 	Music overworld;
+	
 
 	public Play(int state){
 		
@@ -63,10 +64,12 @@ public class Play extends BasicGameState {
 		
 		
 		
-		
 		//load tmx for first level
 		world1 = new TiledMap("res/overworld.tmx");
 		fo = new FadeOutTransition(Color.black, 2000);
+		
+		//get layers of tilemap
+		int collisionLayer = world1.getLayerIndex("Collision");
 
 		
 	}
@@ -113,14 +116,6 @@ public class Play extends BasicGameState {
 		//every input is stored here
 		Input input = gc.getInput();
 		
-		//get layers of tilemap
-		int collisionLayer = world1.getLayerIndex("Collision");
-		
-		int blocked = world1.getTileId(0,0, collisionLayer);
-		//create a new bound rectangle
-		Rectangle checkCollision = getBounds();
-		
-
 		mousePosX = Mouse.getX();
 		mousePosY = Mouse.getY();
 		
@@ -135,24 +130,26 @@ public class Play extends BasicGameState {
 		if (player1.getPlayerPosX() < 0){
 			//go right
 			//collision detection
-			if (mapX+1 == blocked){
-				System.out.println("Blocked Tile");
-			}
+
+			getRightBounds();
 			mapX++;
 			player1.setPlayerPosX(32);
 		}
 		if (player1.getPlayerPosX() > 32){
 			//go left
+			getLeftBounds();
 			mapX--;
 			player1.setPlayerPosX(0);
 		}
 		if (player1.getPlayerPosY() < 0){
 			//go up
+			getUpBounds();
 			mapY++;
 			player1.setPlayerPosY(32);
 		}
 		if (player1.getPlayerPosY() > 32){
 			//go down
+			getDownBounds();
 			mapY--;
 			player1.setPlayerPosY(0);
 		}
@@ -165,11 +162,41 @@ public class Play extends BasicGameState {
 
 	}
 	
-	//this method creates a new rectangle at the map position
-	public Rectangle getBounds(){
+	//returns a new rectangle at players position
+	public Rectangle getLeftBounds(){
+		System.out.println("Rectangle to the left of player is " + (mapX-1) + " , " + mapY);
+		//if (hasProperty(world1, 3, mapX-1, mapY) == false){
+			//System.out.println("not blocked");
+		//}
+		return new Rectangle(mapX-1, mapY, 32, 32);
 		
-		return new Rectangle(mapX, mapY, 32, 32);
 	}
+	public Rectangle getRightBounds(){
+		System.out.println("Rectangle to the right of player is " + (mapX+1) + " , " + mapY);
+		return new Rectangle(mapX+1, mapY, 32, 32);
+	}
+	public Rectangle getUpBounds(){
+		System.out.println("Rectangle north of player is " + mapX + " , " + (mapY-1));
+		return new Rectangle(mapX, mapY+1, 32, 32);
+	}
+	public Rectangle getDownBounds(){
+		System.out.println("Rectangle south of player is " + mapX + " , " + (mapY+1));
+		return new Rectangle(mapX, mapY-1, 32, 32);
+	}
+	
+	public boolean hasProperty(TiledMap world, int tileMapLayer, int x, int y){
+		
+		int globalID = world.getTileId(x, y, tileMapLayer);
+		System.out.println("global ID of tile is: " + globalID);
+		String result = world.getLayerProperty(tileMapLayer, "blocked", "not blocked");
+		if (result == "blocked"){
+			return true;
+		}
+		else{
+		return false;
+		}
+	}
+	
 	
 	public int getID(){
 		
