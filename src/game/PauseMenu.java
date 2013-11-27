@@ -26,9 +26,11 @@ public class PauseMenu {
 		Color c = new Color(0, 0, 0, 85);
 		g.setColor(c);
 		g.fillRect(0,0,640,480);
+		Image logo = new Image("res/sprites/8bit.png");
 		Image resume = new Image("res/sprites/resume.png");
 		Image menu = new Image("res/sprites/menu.png");
 		Image quit = new Image("res/sprites/exitGame.png");
+		logo.draw(150,20);
 		resume.draw(200, 125);
 		menu.draw(200, 200);
 		quit.draw(200 , 275);
@@ -78,6 +80,7 @@ public class PauseMenu {
 				}
 				
 			}
+			
 			
 
 			if (input.isKeyDown(Input.KEY_R)){

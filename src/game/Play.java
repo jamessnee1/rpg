@@ -15,6 +15,9 @@ public class Play extends BasicGameState {
 	
 	//create a new player
 	private Player player1;
+	
+	//health bar
+	private HealthBar health;
 
 	//mouse position
 	int mousePosX, mousePosY;
@@ -46,6 +49,8 @@ public class Play extends BasicGameState {
 		
 		player1 = new Player(gc, sbg);
 		
+		health = new HealthBar(gc, sbg);
+		
 		pause = new PauseMenu();
 		
 		
@@ -69,6 +74,12 @@ public class Play extends BasicGameState {
 		
 		//draw player
 		player1.render(gc, sbg, g);
+		
+		//draw healthbar
+		health.render(gc, sbg, g);
+		
+		//sets colour back to white for text
+		g.setColor(Color.white);
 
 
 		if (PauseMenu.isQuitGame()){

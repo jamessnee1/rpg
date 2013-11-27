@@ -24,8 +24,9 @@ public class Player {
 	private int mapY;
 	
 	
-	public Player(GameContainer gc, StateBasedGame sbg) throws SlickException{
+	public Player(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
+		//change this when health bar is done
 		this.health = 100;
 
 		
@@ -34,7 +35,7 @@ public class Player {
 		
 		//initialise anims
 		playerUp = new SpriteSheet("res/sprites/playerup.png", 32, 32);
-		playerDown = new SpriteSheet("res/sprites/playerdown.png", 32, 32);
+		playerDown = new SpriteSheet("res/sprites/playerdown4frames.png", 32, 32);
 		playerLeft = new SpriteSheet("res/sprites/playerleft.png", 32, 32);
 		playerRight = new SpriteSheet("res/sprites/playerright.png", 32, 32);
 		
