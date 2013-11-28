@@ -28,8 +28,8 @@ public class Play extends BasicGameState {
 	int mousePosX, mousePosY;
 	
 	//keeps track of where we are on the map (for scrolling)
-	private static int mapX;
-	private static int mapY;
+	private static int mapX = 0;
+	private static int mapY = 0;
 	
 	private PauseMenu pause;
 
@@ -57,20 +57,11 @@ public class Play extends BasicGameState {
 		health = new HealthBar(gc, sbg);
 		
 		pause = new PauseMenu();
-		
-		//set map to 0
-		mapX = 0;
-		mapY = 0;
-		
-		
+			
 		
 		//load tmx for first level
 		world1 = new TiledMap("res/overworld.tmx");
 		fo = new FadeOutTransition(Color.black, 2000);
-		
-		//get layers of tilemap
-		int collisionLayer = world1.getLayerIndex("Collision");
-
 		
 	}
 	
@@ -88,7 +79,7 @@ public class Play extends BasicGameState {
 		background.draw(0,0);
 		
 		//draw world, will only render whats on screen
-		//player position, map position, map position + tile
+		//x location to render, y location to render, x tile location, y tile location, width, height
 		world1.render((int)player1.getPlayerPosX()-32, (int)player1.getPlayerPosY()-32, mapX, mapY, mapX+40, mapY+40);
 		
 		//draw player
@@ -115,6 +106,7 @@ public class Play extends BasicGameState {
 		
 		//every input is stored here
 		Input input = gc.getInput();
+				
 		
 		mousePosX = Mouse.getX();
 		mousePosY = Mouse.getY();
@@ -130,7 +122,7 @@ public class Play extends BasicGameState {
 		if (player1.getPlayerPosX() < 0){
 			//go right
 			//collision detection
-
+			
 			getRightBounds();
 			mapX++;
 			player1.setPlayerPosX(32);
@@ -162,37 +154,60 @@ public class Play extends BasicGameState {
 
 	}
 	
-	//returns a new rectangle at players position
-	public Rectangle getLeftBounds(){
+	//returns true or false if tile is blocked
+	public boolean getLeftBounds(){
 		System.out.println("Rectangle to the left of player is " + (mapX-1) + " , " + mapY);
-		//if (hasProperty(world1, 3, mapX-1, mapY) == false){
-			//System.out.println("not blocked");
-		//}
-		return new Rectangle(mapX-1, mapY, 32, 32);
+		//get collision layer of tilemap
+		int collisionLayer = world1.getLayerIndex("Collision");
+		return (isBlocked(world1, collisionLayer, mapX-1, mapY));
 		
 	}
-	public Rectangle getRightBounds(){
+	public boolean getRightBounds(){
 		System.out.println("Rectangle to the right of player is " + (mapX+1) + " , " + mapY);
-		return new Rectangle(mapX+1, mapY, 32, 32);
+		//get collision layer of tilemap
+		int collisionLayer = world1.getLayerIndex("Collision");
+		return (isBlocked(world1, collisionLayer, mapX+1, mapY));
 	}
-	public Rectangle getUpBounds(){
+	public boolean getUpBounds(){
 		System.out.println("Rectangle north of player is " + mapX + " , " + (mapY-1));
-		return new Rectangle(mapX, mapY+1, 32, 32);
+		//get collision layer of tilemap
+		int collisionLayer = world1.getLayerIndex("Collision");
+		return (isBlocked(world1, collisionLayer, mapX, mapY-1));
+		
 	}
-	public Rectangle getDownBounds(){
+	public boolean getDownBounds(){
 		System.out.println("Rectangle south of player is " + mapX + " , " + (mapY+1));
-		return new Rectangle(mapX, mapY-1, 32, 32);
+		//get collision layer of tilemap
+		int collisionLayer = world1.getLayerIndex("Collision");
+		return (isBlocked(world1, collisionLayer, mapX, mapY+1));
 	}
 	
-	public boolean hasProperty(TiledMap world, int tileMapLayer, int x, int y){
+	
+	//this method checks to see which if a given tile has the blocked property
+	public boolean isBlocked(TiledMap world, int tileMapLayer, int x, int y){
 		
-		int globalID = world.getTileId(x, y, tileMapLayer);
-		System.out.println("global ID of tile is: " + globalID);
-		String result = world.getLayerProperty(tileMapLayer, "blocked", "not blocked");
+		if (x <= 0){
+			
+			System.out.println("X check failed! out of bounds");
+			return false;
+		}
+		
+		if (y <= 0){
+			
+			System.out.println("Y check failed! out of bounds");
+			return false;
+		}
+		
+		int checkTileID = world.getTileId(x, y, tileMapLayer);
+		System.out.println("global ID of tile is: " + checkTileID);
+		String result = world.getTileProperty(checkTileID, "blocked", "not blocked");
+		//System.out.println("Result is: " + result);
 		if (result == "blocked"){
+			System.out.println("Tile is blocked");
 			return true;
 		}
 		else{
+			System.out.println("Tile not blocked");
 		return false;
 		}
 	}

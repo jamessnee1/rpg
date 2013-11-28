@@ -20,7 +20,7 @@ public class Player {
 	//player graphics
 	private SpriteSheet playerUp, playerDown, playerLeft, playerRight;
 	//player co-ordinates
-	private double playerPosX, playerPosY;
+	private float playerPosX, playerPosY;
 	//player animations
 	private Animation player, movingUp, movingDown, movingLeft, movingRight;
 	//map co-ordinates
@@ -149,7 +149,7 @@ public class Player {
 		return playerPosX;
 	}
 
-	public void setPlayerPosX(double playerPosX) {
+	public void setPlayerPosX(float playerPosX) {
 		this.playerPosX = playerPosX;
 	}
 
@@ -157,7 +157,7 @@ public class Player {
 		return playerPosY;
 	}
 
-	public void setPlayerPosY(double playerPosY) {
+	public void setPlayerPosY(float playerPosY) {
 		this.playerPosY = playerPosY;
 	}
 
