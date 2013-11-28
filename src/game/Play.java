@@ -186,13 +186,13 @@ public class Play extends BasicGameState {
 	//this method checks to see which if a given tile has the blocked property
 	public boolean isBlocked(TiledMap world, int tileMapLayer, int x, int y){
 		
-		if (x <= 0){
+		if (x < 0){
 			
 			System.out.println("X check failed! out of bounds");
 			return false;
 		}
 		
-		if (y <= 0){
+		if (y < 0){
 			
 			System.out.println("Y check failed! out of bounds");
 			return false;
