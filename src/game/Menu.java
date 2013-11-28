@@ -16,6 +16,7 @@ public class Menu extends BasicGameState {
 	Image background;
 	Image heroBack;
 	float logopos = 600;
+	float fader = 0;
 	Image playnow;
 	Image exitgame;
 	String mousepos = "No input detected!";
@@ -86,6 +87,7 @@ public class Menu extends BasicGameState {
 		int ypos = Mouse.getY();
 		
 		if (logopos > 150){
+			
 			logopos -= delta * .2f;
 		}
 		

@@ -27,9 +27,12 @@ public class Play extends BasicGameState {
 	//mouse position
 	int mousePosX, mousePosY;
 	
-	//keeps track of where we are on the map (for scrolling)
-	private static int mapX = 0;
-	private static int mapY = 0;
+	//true map corner
+	double trueMapPosX = 12, trueMapPosY = 10;
+	
+	//keeps track of where the map is in the top left corner (for scrolling)
+	private static int mapX;
+	private static int mapY;
 	
 	private PauseMenu pause;
 
@@ -79,8 +82,9 @@ public class Play extends BasicGameState {
 		background.draw(0,0);
 		
 		//draw world, will only render whats on screen
-		//x location to render, y location to render, x tile location, y tile location, width, height
+		//x location to render, y location to render, x tile location, y tile location, width to render, height to render
 		world1.render((int)player1.getPlayerPosX()-32, (int)player1.getPlayerPosY()-32, mapX, mapY, mapX+40, mapY+40);
+		
 		
 		//draw player
 		player1.render(gc, sbg, g);
@@ -201,7 +205,6 @@ public class Play extends BasicGameState {
 		int checkTileID = world.getTileId(x, y, tileMapLayer);
 		System.out.println("global ID of tile is: " + checkTileID);
 		String result = world.getTileProperty(checkTileID, "blocked", "not blocked");
-		//System.out.println("Result is: " + result);
 		if (result == "blocked"){
 			System.out.println("Tile is blocked");
 			return true;
