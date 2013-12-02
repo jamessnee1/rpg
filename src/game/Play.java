@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -27,11 +28,14 @@ public class Play extends BasicGameState {
 	//mouse position
 	int mousePosX, mousePosY;
 	
-	//true map corner
+	//true map player position
 	int trueMapPosX = 10, trueMapPosY = 7;
 	
 	//tilemap bound
 	int tileMapEdge = 49;
+	
+	//rectangle to create around world collision objects
+	static Shape worldCollisionBox;
 	
 	//global delta accessable to all methods
 	int globaldelta;
@@ -177,19 +181,72 @@ public class Play extends BasicGameState {
 	
 	//checks the tiles above, below, to the left and to the right of the player
 	public void getLeftBounds(){
+		
+		if (isBlocked(trueMapPosX-1, trueMapPosY, 3)){
+			//tile is blocked, so set collided to true
+			player1.setCollided(true);
+			System.out.println("collision detected!");
+		}
+		
 		System.out.println("Rectangle to the left of player is " + (trueMapPosX-1) + " , " + trueMapPosY);
+		
 	}
 	
 	public void getRightBounds(){
+		
+		if (isBlocked(trueMapPosX+1, trueMapPosY, 3)){
+			player1.setCollided(true);
+			System.out.println("collision detected!");
+		}
+		
 		System.out.println("Rectangle to the right of player is " + (trueMapPosX+1) + " , " + trueMapPosY);
 	}
 	
 	public void getUpBounds(){
+		
+		if (isBlocked(trueMapPosX, trueMapPosY-1, 3)){
+			player1.setCollided(true);
+			System.out.println("collision detected!");
+		}
+		
 		System.out.println("Rectangle north of player is " + trueMapPosX + " , " + (trueMapPosY-1));
 	}
 	
 	public void getDownBounds(){
-		System.out.println("Rectangle south of player is " + trueMapPosX + " , " + (trueMapPosY+1));	
+		
+		if (isBlocked(trueMapPosX, trueMapPosY+1, 3)){
+			player1.setCollided(true);
+			System.out.println("collision detected!");
+			System.out.println("collision rectangle created!");
+		}
+		
+		System.out.println("Rectangle south of player is " + trueMapPosX + " , " + (trueMapPosY+1));		
+	}
+	
+	public boolean isBlocked(int x, int y, int tileMapLayer){
+		
+		//check to see if we have gone over the edge of the map
+		//to prevent game crash
+		if (x < 0 || x > tileMapEdge){
+			System.out.println("X is out of bounds! Failed check");
+			return false;
+		}
+		if (y < 0 || y > tileMapEdge){
+			System.out.println("Y is out of bounds! Failed check");
+			return false;
+		}
+		
+		int checkTileID = world1.getTileId(trueMapPosX, trueMapPosY, 3);
+		String blocked = world1.getTileProperty(checkTileID, "blocked", "no value");
+		System.out.println("The tile at this position is: " + blocked);
+		
+		if (blocked == ""){
+			//we have detected a collision. return true
+			return true;
+		}else{
+			//no collision, return false
+		return false;
+		}
 	}
 	
 
@@ -217,6 +274,10 @@ public class Play extends BasicGameState {
 
 	public static Player getPlayer1() {
 		return player1;
+	}
+
+	public static Shape getWorldCollisionBox() {
+		return worldCollisionBox;
 	}
 
 	

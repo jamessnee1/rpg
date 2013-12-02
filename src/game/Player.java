@@ -28,8 +28,7 @@ public class Player {
 	
 	//player collision box
 	private Rectangle collisionBox = null;
-	
-	
+
 	//collision detection
 	boolean isCollided = false;
 	
@@ -79,7 +78,9 @@ public class Player {
 		//every input is stored here
 		Input input = gc.getInput();
 		
-		//isCollided = collisionBox.intersects().contains(collisionBox);
+		//update player collision box position
+		collisionBox.setLocation(playerPosX, playerPosY);
+		
 		
 		//player movement
 		if (input.isKeyDown(input.KEY_UP) && PauseMenu.isQuitGame() != true){
@@ -87,6 +88,17 @@ public class Player {
 			player = movingUp;
 			player.start();
 			playerPosY += delta * .1f;
+			
+			//if player collides with world collision box
+			if (isCollided){
+				
+				System.out.println("isCollided is " + isCollided);
+				System.out.println("Player collided up");
+				playerPosY -= delta * .1f;
+				//set isCollided back to false
+				isCollided = false;
+			}
+			
 						
 		}
 
@@ -95,6 +107,15 @@ public class Player {
 			player = movingDown;
 			player.start();
 			playerPosY -= delta * .1f;
+			
+			if (isCollided){
+		
+				System.out.println("isCollided is " + isCollided);
+				System.out.println("Player collided down");
+				playerPosY += delta * .1f;
+				//set isCollided back to false
+				isCollided = false;
+			}
 
 		}
 				
@@ -103,6 +124,15 @@ public class Player {
 			player = movingLeft;
 			player.start();
 			playerPosX += delta * .1f;
+			
+			if (isCollided){
+				
+				System.out.println("isCollided is " + isCollided);
+				System.out.println("Player collided left");
+				playerPosX -= delta * .1f;
+				//set isCollided back to false
+				isCollided = false;
+			}
 
 		}
 
@@ -112,6 +142,14 @@ public class Player {
 			player = movingRight;
 			player.start();
 			playerPosX -= delta * .1f;
+			
+			if (isCollided){
+				System.out.println("isCollided is " + isCollided);
+				System.out.println("Player collided right");
+				playerPosX += delta * .1f;
+				//set isCollided back to false
+				isCollided = false;
+			}
 				
 
 		}
@@ -172,6 +210,14 @@ public class Player {
 
 	public Animation getMovingRight() {
 		return movingRight;
+	}
+
+	public boolean isCollided() {
+		return isCollided;
+	}
+
+	public void setCollided(boolean isCollided) {
+		this.isCollided = isCollided;
 	}	
 
 }

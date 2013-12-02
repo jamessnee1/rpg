@@ -67,7 +67,6 @@ public class Game extends StateBasedGame {
 
 	public static void main(String[] args) {
 		
-		System.getProperties().list(System.out);
 		
 		try{
 			appgc = new AppGameContainer(new Game(gamename));
