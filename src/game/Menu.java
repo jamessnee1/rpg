@@ -48,7 +48,6 @@ public class Menu extends BasicGameState {
 		intro = new Music("res/sound/music/intro.wav");
 		overworld = new Music("res/sound/music/overworld.ogg");
 		intro.play();
-		System.out.println("In init menu state");
 		
 	}
 	

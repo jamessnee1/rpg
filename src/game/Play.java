@@ -61,7 +61,6 @@ public class Play extends BasicGameState {
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
-		System.out.println("In init play state");
 		
 		background = new Image("res/sprites/background.png");
 		
@@ -139,9 +138,9 @@ public class Play extends BasicGameState {
 		if (player1.getPlayerPosX() < 0){
 			
 			//collision detection - If the tile above, to the left, to the right
-			//or to the bottom of the player is a colliding tile, we must create
-			//a collisionbox around the tile and then see if it intersects with the 
-			//player collision box
+			//or to the bottom of the player is a colliding tile, we check to see
+			//the property of the tile and then see if its blocked. Set boolean for
+			//player collision to true, and then minus the appropriate values.
 			
 			//go right
 			mapX++;
@@ -185,6 +184,9 @@ public class Play extends BasicGameState {
 		if (isBlocked(trueMapPosX-1, trueMapPosY, 3)){
 			//tile is blocked, so set collided to true
 			player1.setCollided(true);
+			trueMapPosX++;
+			//set map back by 1
+			mapX += globaldelta * .1f;
 			System.out.println("collision detected!");
 		}
 		
@@ -196,6 +198,8 @@ public class Play extends BasicGameState {
 		
 		if (isBlocked(trueMapPosX+1, trueMapPosY, 3)){
 			player1.setCollided(true);
+			trueMapPosX--;
+			mapX -= globaldelta * .1f;
 			System.out.println("collision detected!");
 		}
 		
@@ -206,6 +210,8 @@ public class Play extends BasicGameState {
 		
 		if (isBlocked(trueMapPosX, trueMapPosY-1, 3)){
 			player1.setCollided(true);
+			trueMapPosY++;
+			mapY += globaldelta * .1f;
 			System.out.println("collision detected!");
 		}
 		
@@ -216,6 +222,8 @@ public class Play extends BasicGameState {
 		
 		if (isBlocked(trueMapPosX, trueMapPosY+1, 3)){
 			player1.setCollided(true);
+			trueMapPosY--;
+			mapX -= globaldelta * .1f;
 			System.out.println("collision detected!");
 			
 		}
