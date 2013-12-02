@@ -7,11 +7,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Rectangle;
+
 
 public class Player {
 	
@@ -23,12 +25,13 @@ public class Player {
 	private float playerPosX, playerPosY;
 	//player animations
 	private Animation player, movingUp, movingDown, movingLeft, movingRight;
-	//map co-ordinates
-	private int mapX;
-	private int mapY;
 	
 	//player collision box
-	private Rectangle collisionBox;
+	private Rectangle collisionBox = null;
+	
+	
+	//collision detection
+	boolean isCollided = false;
 	
 	private String blockedKey = "blocked";
 	
@@ -40,11 +43,8 @@ public class Player {
 		//change this when health bar is done
 		this.health = 0;
 		
-		this.collisionBox = collisionBox;
+		collisionBox = new Rectangle(320, 240, 32, 32);
 		
-
-		mapX = Play.getMapX();
-		mapY = Play.getMapY();
 		
 		//initialise anims
 		playerUp = new SpriteSheet("res/sprites/playerup4frames.png", 32, 32);
@@ -67,6 +67,7 @@ public class Player {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		//draw player
 		this.player.draw(320,240);
+		g.drawRect(320, 240, 32, 32);
 		
 		
 		g.setColor(Color.white);
@@ -78,9 +79,7 @@ public class Player {
 		//every input is stored here
 		Input input = gc.getInput();
 		
-		//get old x and y for collision detection
-		double oldX = playerPosX, oldY = playerPosY;
-		boolean collisionX = false, collisionY = false;
+		//isCollided = collisionBox.intersects().contains(collisionBox);
 		
 		//player movement
 		if (input.isKeyDown(input.KEY_UP) && PauseMenu.isQuitGame() != true){
@@ -130,12 +129,6 @@ public class Player {
 
 	}
 	
-	//private boolean isCellBlocked(double x, double y){
-		//Cell cell = collision.getCell((int) (x / collision.getTileWidth()), (int) (y / collision.getTileHeight()));
-		//return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
-	//}
-	
-	
 	//getters and setters
 	public static float getHealth() {
 		return health;
@@ -179,13 +172,6 @@ public class Player {
 
 	public Animation getMovingRight() {
 		return movingRight;
-	}
-
-	public Rectangle getCollisionBox() {
-		return collisionBox;
-	}
-	
-	
-	
+	}	
 
 }

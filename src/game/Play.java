@@ -28,7 +28,13 @@ public class Play extends BasicGameState {
 	int mousePosX, mousePosY;
 	
 	//true map corner
-	double trueMapPosX = 12, trueMapPosY = 10;
+	int trueMapPosX = 10, trueMapPosY = 7;
+	
+	//tilemap bound
+	int tileMapEdge = 49;
+	
+	//global delta accessable to all methods
+	int globaldelta;
 	
 	//keeps track of where the map is in the top left corner (for scrolling)
 	private static int mapX;
@@ -102,6 +108,7 @@ public class Play extends BasicGameState {
 		
 		g.drawString(mousepos, 200, 400);	
 		g.drawString("Map position x:" + mapX + "\nMap position y: "+ mapY, 400, 60);
+		g.drawString("Player Map Position X: " + trueMapPosX +"\nPlayer Map Position Y: "+ trueMapPosY, 400, 100);
 		
 
 	}
@@ -110,6 +117,8 @@ public class Play extends BasicGameState {
 		
 		//every input is stored here
 		Input input = gc.getInput();
+		
+		globaldelta = delta;
 				
 		
 		mousePosX = Mouse.getX();
@@ -124,30 +133,38 @@ public class Play extends BasicGameState {
 		
 		//map updating
 		if (player1.getPlayerPosX() < 0){
-			//go right
-			//collision detection
 			
-			getRightBounds();
+			//collision detection - If the tile above, to the left, to the right
+			//or to the bottom of the player is a colliding tile, we must create
+			//a collisionbox around the tile and then see if it intersects with the 
+			//player collision box
+			
+			//go right
 			mapX++;
+			trueMapPosX++;
 			player1.setPlayerPosX(32);
+			getRightBounds();
 		}
 		if (player1.getPlayerPosX() > 32){
 			//go left
-			getLeftBounds();
 			mapX--;
+			trueMapPosX--;
 			player1.setPlayerPosX(0);
+			getLeftBounds();
 		}
 		if (player1.getPlayerPosY() < 0){
-			//go up
-			getUpBounds();
+			//go down
 			mapY++;
+			trueMapPosY++;
 			player1.setPlayerPosY(32);
+			getDownBounds();
 		}
 		if (player1.getPlayerPosY() > 32){
-			//go down
-			getDownBounds();
+			//go up
 			mapY--;
+			trueMapPosY--;
 			player1.setPlayerPosY(0);
+			getUpBounds();
 		}
 		
 		//display menu
@@ -158,63 +175,24 @@ public class Play extends BasicGameState {
 
 	}
 	
-	//returns true or false if tile is blocked
-	public boolean getLeftBounds(){
-		System.out.println("Rectangle to the left of player is " + (mapX-1) + " , " + mapY);
-		//get collision layer of tilemap
-		int collisionLayer = world1.getLayerIndex("Collision");
-		return (isBlocked(world1, collisionLayer, mapX-1, mapY));
-		
-	}
-	public boolean getRightBounds(){
-		System.out.println("Rectangle to the right of player is " + (mapX+1) + " , " + mapY);
-		//get collision layer of tilemap
-		int collisionLayer = world1.getLayerIndex("Collision");
-		return (isBlocked(world1, collisionLayer, mapX+1, mapY));
-	}
-	public boolean getUpBounds(){
-		System.out.println("Rectangle north of player is " + mapX + " , " + (mapY-1));
-		//get collision layer of tilemap
-		int collisionLayer = world1.getLayerIndex("Collision");
-		return (isBlocked(world1, collisionLayer, mapX, mapY-1));
-		
-	}
-	public boolean getDownBounds(){
-		System.out.println("Rectangle south of player is " + mapX + " , " + (mapY+1));
-		//get collision layer of tilemap
-		int collisionLayer = world1.getLayerIndex("Collision");
-		return (isBlocked(world1, collisionLayer, mapX, mapY+1));
+	//checks the tiles above, below, to the left and to the right of the player
+	public void getLeftBounds(){
+		System.out.println("Rectangle to the left of player is " + (trueMapPosX-1) + " , " + trueMapPosY);
 	}
 	
-	
-	//this method checks to see which if a given tile has the blocked property
-	public boolean isBlocked(TiledMap world, int tileMapLayer, int x, int y){
-		
-		if (x < 0){
-			
-			System.out.println("X check failed! out of bounds");
-			return false;
-		}
-		
-		if (y < 0){
-			
-			System.out.println("Y check failed! out of bounds");
-			return false;
-		}
-		
-		int checkTileID = world.getTileId(x, y, tileMapLayer);
-		System.out.println("global ID of tile is: " + checkTileID);
-		String result = world.getTileProperty(checkTileID, "blocked", "not blocked");
-		if (result == "blocked"){
-			System.out.println("Tile is blocked");
-			return true;
-		}
-		else{
-			System.out.println("Tile not blocked");
-		return false;
-		}
+	public void getRightBounds(){
+		System.out.println("Rectangle to the right of player is " + (trueMapPosX+1) + " , " + trueMapPosY);
 	}
 	
+	public void getUpBounds(){
+		System.out.println("Rectangle north of player is " + trueMapPosX + " , " + (trueMapPosY-1));
+	}
+	
+	public void getDownBounds(){
+		System.out.println("Rectangle south of player is " + trueMapPosX + " , " + (trueMapPosY+1));	
+	}
+	
+
 	
 	public int getID(){
 		

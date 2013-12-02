@@ -2,11 +2,16 @@ package game;
 
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+
+
+
+
 
 /*				 RPG Quest
  * 		   		By James Snee
@@ -37,7 +42,7 @@ public class Game extends StateBasedGame {
 	public Game(String gamename) {
 		
 		super(gamename);
-		this.addState(new Intro(intro));
+		//this.addState(new Intro(intro));
 		this.addState(new Menu(menu));
 		this.addState(new Play(play));
 		
@@ -47,7 +52,7 @@ public class Game extends StateBasedGame {
 	//GameContainer handles main game loop etc
 	public void initStatesList(GameContainer gc) throws SlickException {
 		
-		this.getState(intro).init(gc, this);
+		//this.getState(intro).init(gc, this);
 		this.getState(menu).init(gc, this);
 		this.getState(play).init(gc, this);
 		//first game screen
@@ -62,9 +67,11 @@ public class Game extends StateBasedGame {
 
 	public static void main(String[] args) {
 		
-	
+		System.getProperties().list(System.out);
+		
 		try{
 			appgc = new AppGameContainer(new Game(gamename));
+			appgc.setIcon("res/finalIcon.png");
 			//width, height, fullscreen
 			appgc.setDisplayMode(640, 480, false);
 			//set vsync to monitor
@@ -100,6 +107,12 @@ public class Game extends StateBasedGame {
 			
 			
 		}
+	
+	//method to check the OS
+	public static boolean isOSX() {
+	    String osName = System.getProperty("os.name");
+	    return osName.contains("OS X");
+	}
 
 	public static int getMenu() {
 		return menu;

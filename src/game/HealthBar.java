@@ -39,10 +39,10 @@ public class HealthBar extends Image {
 	}
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		
-		//renders health bar initial animation 
+		//renders health bar animation 
 		for (float i = 0; i < 1; i++){
 			if (currentHealth < 100){
-			currentHealth++;
+				currentHealth++;
 			}
 		}
 		
