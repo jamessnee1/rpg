@@ -217,7 +217,7 @@ public class Play extends BasicGameState {
 		if (isBlocked(trueMapPosX, trueMapPosY+1, 3)){
 			player1.setCollided(true);
 			System.out.println("collision detected!");
-			System.out.println("collision rectangle created!");
+			
 		}
 		
 		System.out.println("Rectangle south of player is " + trueMapPosX + " , " + (trueMapPosY+1));		

@@ -89,7 +89,7 @@ public class Player {
 			player.start();
 			playerPosY += delta * .1f;
 			
-			//if player collides with world collision box
+			//if player collides
 			if (isCollided){
 				
 				System.out.println("isCollided is " + isCollided);
